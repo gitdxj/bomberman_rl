@@ -33,7 +33,7 @@ def main(args):
 
     # Run arguments
     play_parser = subparsers.add_parser("play")
-    agent_group = play_parser.add_mutually_exclusive_group()
+    agent_group = play_parser.add_mutually_exclusive_group()  # only one arg in the mutually exclusive group is allowed
     agent_group.add_argument("--my-agent", type=str, help="Play agent of name ... against three rule_based_agents")
     agent_group.add_argument("--agents", type=str, nargs="+", default=["rule_based_agent"] * s.MAX_AGENTS, help="Explicitly set the agent names in the game")
     play_parser.add_argument("--train", default=0, type=int, choices=[0, 1, 2, 3, 4],
@@ -81,7 +81,7 @@ def main(args):
             agents.append((args.my_agent, len(agents) < args.train))
             args.agents = ["rule_based_agent"] * (s.MAX_AGENTS - 1)
         for agent_name in args.agents:
-            agents.append((agent_name, len(agents) < args.train))
+            agents.append((agent_name, len(agents) < args.train))  # the second param means training or not
 
         world = BombeRLeWorld(args, agents)
     elif args.command_name == "replay":

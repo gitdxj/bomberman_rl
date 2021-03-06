@@ -79,7 +79,7 @@ class GenericWorld:
         # backend = ProcessAgentBackend(train, name, agent_dir)
         backend.start()
 
-        agent = Agent(self.colors.pop(), name, agent_dir, train, backend)
+        agent = Agent(self.colors.pop(), name, agent_dir, train, backend)   # color, agent_name, code_name, train: bool, backend: "AgentBackend"
         self.agents.append(agent)
 
     def tile_is_free(self, x, y):
@@ -297,7 +297,7 @@ class BombeRLeWorld(GenericWorld):
         # Add specified agents and start their subprocesses
         self.agents = []
         for agent_dir, train in agents:
-            if list([d for d, t in agents]).count(agent_dir) > 1:
+            if list([d for d, t in agents]).count(agent_dir) > 1:   # give agents with the same name a serial number
                 name = agent_dir + '_' + str(list([a.code_name for a in self.agents]).count(agent_dir))
             else:
                 name = agent_dir
